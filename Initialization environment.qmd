@@ -1,0 +1,23 @@
+---
+title: "Initialization environment"
+author: "Liang Tong"
+date: today
+format: html
+editor: visual
+---
+
+# Step0
+
+install the package
+
+```{r}
+install.packages("devtools")
+install.packages("roxygen2")
+library(devtools)
+```
+
+check if ready
+
+```{r}
+has_devel()
+```
