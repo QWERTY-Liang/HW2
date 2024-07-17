@@ -53,6 +53,7 @@ load_all()
 build()
 # then install the tar.gz file!!!!!!restart R after install
  # in devtolls
+ install()
 ```
 
 **!!!!!!restart R after install**

@@ -62,10 +62,7 @@ TL_summary <- function(x, ...) {
 #' data <- TL_read("path/to/hdro_indicators_aggregates_irl.csv")
 #' TL_plot(data)
 TL_plot <- function(x, ...) {
-  ggplot(x$'indicator_id', aes(x=country_name, y=value)) +
-    geom_boxplot(fill="slateblue", alpha=0.2) +
-    xlab("Country name")+
-    ggtitle("Life Expectancy at Birth (years)")
+ plot(x)
 }
 
 #setMethod("print", "HDI", TL_print)

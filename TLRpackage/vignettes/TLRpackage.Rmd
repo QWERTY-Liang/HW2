@@ -22,6 +22,8 @@ library(ggplot2)
 
 # 1. TL_read example
 
+## first data set: IRL
+
 read the data, and show the output is a new class : **HDI**
 
 e.g. for variable **year**, the class is **int** ; for variable **country_code**, the class is **char**
@@ -34,7 +36,19 @@ class(data$'year')
 class(data$'country_code')
 ```
 
+## second data set: JPN
+
+```{r 1.2}
+data2 <- TL_read("hdro_indicators_jpn.csv")
+
+class(data)
+class(data$'year')
+class(data$'country_code')
+```
+
 # 2. TL_print example
+
+## first data set: IRL
 
 show first **2** rows
 
@@ -42,7 +56,15 @@ show first **2** rows
 TL_print(data)
 ```
 
+## second data set: JPN
+
+```{r 2.2}
+TL_print(data2)
+```
+
 # 3. TL_summary example
+
+## first data set: IRL
 
 summary data, below show the variable name, class and some basic stats. calculation for variable **year** and **value**
 
@@ -50,10 +72,24 @@ summary data, below show the variable name, class and some basic stats. calculat
 TL_summary(data)
 ```
 
+## second data set: JPN
+
+```{r 3.2}
+TL_summary(data2)
+```
+
 # 4. TL_plot example
 
-plot function example for one counrtry
+## first data set: IRL
+
+plot function example for one country
 
 ```{r 4}
 TL_plot(data)
+```
+
+## second data set: JPN
+
+```{r 4.2}
+TL_plot(data2)
 ```
