@@ -10,14 +10,98 @@ editor: visual
 
 install the package
 
-```{r}
+```{r 1}
 install.packages("devtools")
 install.packages("roxygen2")
+install.packages('available')
 library(devtools)
 ```
 
 check if ready
 
-```{r}
+```{r 2}
 has_devel()
 ```
+
+# Step1
+
+create package 'TLRpackage'
+
+```{r 3}
+create("TLRpackage")
+```
+
+check if available
+
+```{r 4}
+available::available("TLRpackage")
+```
+
+add example function (create r script in TLRpackage/R folder)
+
+# Step2
+
+before document the package ,should **open TLRpackage.Rproj!!!!**
+
+install()
+
+```         
+library(devtools)
+document()
+load_all()
+#?findruns
+build()
+# then install the tar.gz file!!!!!!restart R after install
+ # in devtolls
+```
+
+**!!!!!!restart R after install**
+
+tips: create R script and : **Code \> Insert Roxygen Skeleton**
+
+# Step3
+
+testing the function
+
+Vignettes
+
+```{r 5}
+
+#usethis::use_testthat(3)# not run because of R markdown
+usethis::use_vignette("TLRpackage")
+#devtools::build_vignettes()
+```
+
+make changes in Rmd and finially **devtools::build_vignettes()**
+
+**then find the html in .doc folder**
+
+# Step4
+
+create some readme files
+
+**should in the package folder**
+
+```{r 6}
+usethis::use_readme_md() # no code 
+#usethis::use_readme_rmd() # with code
+#usethis::use_news_md() #for update
+#devtools::build() 
+#devtools::install() 
+#devtools::check() 
+```
+
+**then rebuild the package,install,restart R**
+
+# Step5
+
+build website
+
+or **build the pdf maual!**
+
+```{r 7}
+#pkgdown::build_site()# have problem working
+devtools::build_manual()
+```
+
+# Step6 loading data

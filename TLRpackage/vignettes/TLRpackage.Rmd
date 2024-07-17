@@ -1,0 +1,59 @@
+---
+title: "TLRpackage"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{TLRpackage}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(TLRpackage)
+library(data.table)
+library(ggplot2)
+```
+
+# 1. TL_read example
+
+read the data, and show the output is a new class : **HDI**
+
+e.g. for variable **year**, the class is **int** ; for variable **country_code**, the class is **char**
+
+```{r 1}
+data <- TL_read("hdro_indicators_irl.csv")
+
+class(data)
+class(data$'year')
+class(data$'country_code')
+```
+
+# 2. TL_print example
+
+show first **2** rows
+
+```{r 2}
+TL_print(data)
+```
+
+# 3. TL_summary example
+
+summary data, below show the variable name, class and some basic stats. calculation for variable **year** and **value**
+
+```{r 3}
+TL_summary(data)
+```
+
+# 4. TL_plot example
+
+plot function example for one counrtry
+
+```{r 4}
+TL_plot(data)
+```

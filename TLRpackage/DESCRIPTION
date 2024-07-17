@@ -1,0 +1,15 @@
+Package: TLRpackage
+Title: TLpackage for Assiment 2 use
+Version: 0.0.1
+Authors@R: 
+    person("Liang", "Tong", , "liang.tong2@ucdconnect.ie", role = c("aut", "cre"),
+           comment = c(UCD_id = "17208987"))
+Description: read and summarise the Human Development Indicators data
+License: `use_mit_license()` 
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
