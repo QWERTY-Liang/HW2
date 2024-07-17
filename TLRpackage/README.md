@@ -22,4 +22,16 @@ This is a basic example which shows you how to solve a common problem:
 ``` r
 library(TLRpackage)
 ## basic example code
+
+data <- TL_read("hdro_indicators_irl.csv")
+
+class(data)
+class(data$'year')
+class(data$'country_code')
+
+TL_print(data)
+
+TL_summary(data)
+
+TL_plot(data)
 ```

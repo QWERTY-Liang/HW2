@@ -1,6 +1,6 @@
 Package: TLRpackage
 Title: TLpackage for Assiment 2 use
-Version: 0.0.1
+Version: 0.2.1
 Authors@R: 
     person("Liang", "Tong", , "liang.tong2@ucdconnect.ie", role = c("aut", "cre"),
            comment = c(UCD_id = "17208987"))
