@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>TLRpackage</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">TLRpackage</h1>
+
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(TLRpackage)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co">#&gt; Warning: package &#39;data.table&#39; was built under R version 4.3.3</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div>
+<div id="tl_read-example" class="section level1">
+<h1>1. TL_read example</h1>
+<div id="first-data-set-irl" class="section level2">
+<h2>first data set: IRL</h2>
+<p>read the data, and show the output is a new class :
+<strong>HDI</strong></p>
+<p>e.g. for variable <strong>year</strong>, the class is
+<strong>int</strong> ; for variable <strong>country_code</strong>, the
+class is <strong>char</strong></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">TL_read</span>(<span class="st">&quot;hdro_indicators_irl.csv&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="fu">class</span>(data)</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co">#&gt; [1] &quot;HDI&quot;        &quot;data.table&quot; &quot;data.frame&quot;</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="fu">class</span>(data<span class="sc">$</span><span class="st">&#39;year&#39;</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co">#&gt; [1] &quot;integer&quot;</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="fu">class</span>(data<span class="sc">$</span><span class="st">&#39;country_code&#39;</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co">#&gt; [1] &quot;character&quot;</span></span></code></pre></div>
+</div>
+<div id="second-data-set-jpn" class="section level2">
+<h2>second data set: JPN</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>data2 <span class="ot">&lt;-</span> <span class="fu">TL_read</span>(<span class="st">&quot;hdro_indicators_jpn.csv&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="fu">class</span>(data)</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">#&gt; [1] &quot;HDI&quot;        &quot;data.table&quot; &quot;data.frame&quot;</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="fu">class</span>(data<span class="sc">$</span><span class="st">&#39;year&#39;</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt; [1] &quot;integer&quot;</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="fu">class</span>(data<span class="sc">$</span><span class="st">&#39;country_code&#39;</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt; [1] &quot;character&quot;</span></span></code></pre></div>
+</div>
+</div>
+<div id="tl_print-example" class="section level1">
+<h1>2. TL_print example</h1>
+<div id="first-data-set-irl-1" class="section level2">
+<h2>first data set: IRL</h2>
+<p>show first <strong>2</strong> rows</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">TL_print</span>(data)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co">#&gt;    country_code country_name indicator_id</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co">#&gt;          &lt;char&gt;       &lt;char&gt;       &lt;char&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co">#&gt; 1:          IRL      Ireland          abr</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co">#&gt; 2:          IRL      Ireland          abr</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="co">#&gt;                                               indicator_name index_id</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co">#&gt;                                                       &lt;char&gt;   &lt;char&gt;</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="co">#&gt; 1: Adolescent Birth Rate (births per 1,000 women ages 15-19)      GII</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co">#&gt; 2: Adolescent Birth Rate (births per 1,000 women ages 15-19)      GII</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co">#&gt;                 index_name  value  year</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="co">#&gt;                     &lt;char&gt;  &lt;num&gt; &lt;int&gt;</span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="co">#&gt; 1: Gender Inequality Index 15.814  1990</span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="co">#&gt; 2: Gender Inequality Index 16.584  1991</span></span></code></pre></div>
+</div>
+<div id="second-data-set-jpn-1" class="section level2">
+<h2>second data set: JPN</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">TL_print</span>(data2)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co">#&gt;    country_code country_name indicator_id</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt;          &lt;char&gt;       &lt;char&gt;       &lt;char&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt; 1:          JPN        Japan          abr</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; 2:          JPN        Japan          abr</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt;                                               indicator_name index_id</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt;                                                       &lt;char&gt;   &lt;char&gt;</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co">#&gt; 1: Adolescent Birth Rate (births per 1,000 women ages 15-19)      GII</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co">#&gt; 2: Adolescent Birth Rate (births per 1,000 women ages 15-19)      GII</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co">#&gt;                 index_name value  year</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt;                     &lt;char&gt; &lt;num&gt; &lt;int&gt;</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt; 1: Gender Inequality Index 3.484  1990</span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt; 2: Gender Inequality Index 3.779  1991</span></span></code></pre></div>
+</div>
+</div>
+<div id="tl_summary-example" class="section level1">
+<h1>3. TL_summary example</h1>
+<div id="first-data-set-irl-2" class="section level2">
+<h2>first data set: IRL</h2>
+<p>summary data, below show the variable name, class and some basic
+stats. calculation for variable <strong>year</strong> and
+<strong>value</strong></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">TL_summary</span>(data)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="co">#&gt;  country_code       country_name       indicator_id       indicator_name    </span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co">#&gt;  Length:894         Length:894         Length:894         Length:894        </span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co">#&gt;  Class :character   Class :character   Class :character   Class :character  </span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt;  Mode  :character   Mode  :character   Mode  :character   Mode  :character  </span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co">#&gt;                                                                             </span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co">#&gt;                                                                             </span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt;                                                                             </span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="co">#&gt;    index_id          index_name            value                year     </span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co">#&gt;  Length:894         Length:894         Min.   :    -4.00   Min.   :1990  </span></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="co">#&gt;  Class :character   Class :character   1st Qu.:    10.45   1st Qu.:1998  </span></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="co">#&gt;  Mode  :character   Mode  :character   Median :    18.46   Median :2007  </span></span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="co">#&gt;                                        Mean   :  5234.48   Mean   :2007  </span></span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="co">#&gt;                                        3rd Qu.:    78.28   3rd Qu.:2015  </span></span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a><span class="co">#&gt;                                        Max.   :108423.61   Max.   :2022</span></span></code></pre></div>
+</div>
+<div id="second-data-set-jpn-2" class="section level2">
+<h2>second data set: JPN</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">TL_summary</span>(data2)</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="co">#&gt;  country_code       country_name       indicator_id       indicator_name    </span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="co">#&gt;  Length:894         Length:894         Length:894         Length:894        </span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="co">#&gt;  Class :character   Class :character   Class :character   Class :character  </span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="co">#&gt;  Mode  :character   Mode  :character   Mode  :character   Mode  :character  </span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co">#&gt;                                                                             </span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="co">#&gt;                                                                             </span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="co">#&gt;                                                                             </span></span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a><span class="co">#&gt;    index_id          index_name            value               year     </span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="co">#&gt;  Length:894         Length:894         Min.   :    0.82   Min.   :1990  </span></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="co">#&gt;  Class :character   Class :character   1st Qu.:   10.19   1st Qu.:1998  </span></span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="co">#&gt;  Mode  :character   Mode  :character   Median :   15.36   Median :2007  </span></span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="co">#&gt;                                        Mean   : 4331.27   Mean   :2007  </span></span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="co">#&gt;                                        3rd Qu.:   82.27   3rd Qu.:2015  </span></span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a><span class="co">#&gt;                                        Max.   :56382.96   Max.   :2022</span></span></code></pre></div>
+</div>
+</div>
+<div id="tl_plot-example" class="section level1">
+<h1>4. TL_plot example</h1>
+<div id="first-data-set-irl-3" class="section level2">
+<h2>first data set: IRL</h2>
+<p>plot function example for one country</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">TL_plot</span>(data)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+<div id="second-data-set-jpn-3" class="section level2">
+<h2>second data set: JPN</h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">TL_plot</span>(data2)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
